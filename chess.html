@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+    createDesk = function() {
+        let table = document.createElement('table');
+        table.style.borderCollapse = "collapse";
+        table.style.border = "1px solid grey"
+        table.style.textAlign = "center";
+        table.style.fontSize = "20px";
+        let words = [" ","a","b","c","d","e","f","g","h"," "];
+        let nums = [" ","8","7","6","5","4","3","2","1"," "];
+
+
+        for (let i = 0; i < 10; i++) {
+            let tr = document.createElement('tr');
+            table.append(tr);
+            var egg = 0;
+            for (let j = 0; j < 10; j++) {
+                let td = document.createElement('td');
+                td.style.width = "60px";
+                td.style.height = "60px";
+                td.style.border = "1px solid grey";
+                tr.append(td);
+                if (i == 0 || i == 9) {
+                    td.innerHTML = words[j];
+                    if (i == 0) {
+                        td.classList.add("rotated");
+                    }
+                } 
+                if (j == 0 || j == 9) {
+                    td.innerHTML = nums[i];
+                    if (j == 9) {
+                        td.classList.add("rotated");
+                    }
+                }
+            }
+        }
+        return table;
+    }
+    
+
+    paintIt = function(desk) {
+        let array = desk.getElementsByTagName("td");
+        var spam = 0;
+        doIt:
+            for (let f = 10; f < array.length-10; f++) {
+                if (f % 10 == 0) {
+                    continue;
+                }
+                if (f % 10 == 9) {
+                    continue;
+                }
+                if (spam && spam % 2) {
+                    array[f].style.backgroundColor = "brown"; 
+                }
+                spam += ((spam + 2) % 9)? 1 : 2; //пришлось стырить        
+            }
+    }
+    
+    
+    enterPiece = function(desk) {
+        let array = desk.getElementsByTagName("td");
+        doIt:
+        //тут обленился
+            for (let i = 10; i < array.length-10; i++) {
+                    if (i == 11) {
+                        array[i].innerHTML = "&#9814;";
+                        array[18].innerHTML = "&#9814;";
+                        array[81].innerHTML = "&#9820;";
+                        array[88].innerHTML = "&#9820;";
+                    }
+                    if (i == 12) {
+                        array[i].innerHTML = "&#9816;";
+                        array[17].innerHTML = "&#9816;";
+                        array[82].innerHTML = "&#9822;";
+                        array[87].innerHTML = "&#9822;";
+                    }
+                    if (i == 13) {
+                        array[i].innerHTML = "&#9815;";
+                        array[16].innerHTML = "&#9815;";
+                        array[83].innerHTML = "&#9821;";
+                        array[86].innerHTML = "&#9821;";
+                    }
+                    if (i == 14) {
+                        array[i].innerHTML = "&#9813;";
+                        array[15].innerHTML = "&#9812;";
+                        array[84].innerHTML = "&#9819;";
+                        array[85].innerHTML = "&#9818;";
+                    }
+                    if (i > 20) { //i>20 | i<29 почему то не сработал
+                        if (i < 29) {
+                            array[i].innerHTML = "&#9817;";  
+                        }
+                    }
+                    if (i > 70) {
+                        if (i < 79) {
+                            array[i].innerHTML = "&#9823;";
+                        }
+                    }
+            }
+    }
+    
+    var desk = createDesk();
+    document.body.appendChild(desk);
+    paintIt(desk);
+    enterPiece(desk);
+    </script>
+</body>
+</html>
